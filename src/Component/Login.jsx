@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import useCountdown from "../Hooks/useCountDown";
+import Success from "./Success";
+
 import { generate_OTP_email, check_OTP } from "emailotp";
 
 const Login = () => {
@@ -90,92 +92,98 @@ const Login = () => {
               <span>Enter the OTP you received at</span>
               <span className="font-bold">{email}</span>
             </div>
-            <form className="space-y-5" onSubmit={handleOtpValidate}>
-              <div
-                id="otp"
-                className="flex flex-row justify-center text-center px-2 mt-5"
-              >
-                <input
-                  className="m-2 border h-10 w-10 text-center form-control rounded"
-                  type="number"
-                  name="first"
-                  maxLength="1"
-                  min="0"
-                  max="9"
-                  required
-                />
 
-                <input
-                  className="m-2 border h-10 w-10 text-center form-control rounded"
-                  type="number"
-                  name="second"
-                  maxLength="1"
-                  min="0"
-                  max="9"
-                  required
-                />
-                <input
-                  className="m-2 border h-10 w-10 text-center form-control rounded"
-                  type="number"
-                  name="third"
-                  maxLength="1"
-                  min="0"
-                  max="9"
-                  required
-                />
-                <input
-                  className="m-2 border h-10 w-10 text-center form-control rounded"
-                  type="number"
-                  name="fourth"
-                  maxLength="1"
-                  min="0"
-                  max="9"
-                  required
-                />
-                <input
-                  className="m-2 border h-10 w-10 text-center form-control rounded"
-                  type="number"
-                  name="fifth"
-                  maxLength="1"
-                  min="0"
-                  max="9"
-                  required
-                />
-                <input
-                  className="m-2 border h-10 w-10 text-center form-control rounded"
-                  type="number"
-                  name="sixth"
-                  maxLength="1"
-                  min="0"
-                  max="9"
-                  required
-                />
-              </div>
-
-              {message && (
-                <div className="flex justify-center text-center mt-5">
-                  <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                    {message}
-                  </span>
-                </div>
-              )}
-
-              {secondsLeft > 0 && (
-                <div className="flex justify-center text-center mt-5">
-                  <span className="font-bold">
-                    Code expire in {secondsLeft > 0 && `${secondsLeft}`} seconds
-                  </span>
-                </div>
-              )}
-              <div className="flex justify-center text-center mt-5">
-                <button
-                  type="submit"
-                  className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300"
+            {!successmessage ? (
+              <form className="space-y-5" onSubmit={handleOtpValidate}>
+                <div
+                  id="otp"
+                  className="flex flex-row justify-center text-center px-2 mt-5"
                 >
-                  Verify
-                </button>
-              </div>
-            </form>
+                  <input
+                    className="m-2 border h-10 w-10 text-center form-control rounded"
+                    type="number"
+                    name="first"
+                    maxLength="1"
+                    min="0"
+                    max="9"
+                    required
+                  />
+
+                  <input
+                    className="m-2 border h-10 w-10 text-center form-control rounded"
+                    type="number"
+                    name="second"
+                    maxLength="1"
+                    min="0"
+                    max="9"
+                    required
+                  />
+                  <input
+                    className="m-2 border h-10 w-10 text-center form-control rounded"
+                    type="number"
+                    name="third"
+                    maxLength="1"
+                    min="0"
+                    max="9"
+                    required
+                  />
+                  <input
+                    className="m-2 border h-10 w-10 text-center form-control rounded"
+                    type="number"
+                    name="fourth"
+                    maxLength="1"
+                    min="0"
+                    max="9"
+                    required
+                  />
+                  <input
+                    className="m-2 border h-10 w-10 text-center form-control rounded"
+                    type="number"
+                    name="fifth"
+                    maxLength="1"
+                    min="0"
+                    max="9"
+                    required
+                  />
+                  <input
+                    className="m-2 border h-10 w-10 text-center form-control rounded"
+                    type="number"
+                    name="sixth"
+                    maxLength="1"
+                    min="0"
+                    max="9"
+                    required
+                  />
+                </div>
+
+                {message && (
+                  <div className="flex justify-center text-center mt-5">
+                    <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                      {message}
+                    </span>
+                  </div>
+                )}
+
+                {secondsLeft > 0 && (
+                  <div className="flex justify-center text-center mt-5">
+                    <span className="font-bold">
+                      Code expire in {secondsLeft > 0 && `${secondsLeft}`}{" "}
+                      seconds
+                    </span>
+                  </div>
+                )}
+                <div className="flex justify-center text-center mt-5">
+                  <button
+                    type="submit"
+                    className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300"
+                  >
+                    Verify
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <Success />
+            )}
           </div>
         </div>
       )}
