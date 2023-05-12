@@ -13,14 +13,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
 
     const generateOTP = generate_OTP_email(email);
     setMessage(generateOTP);
 
     if (generateOTP == "Email containing OTP has been sent successfully") {
       setSentotp(1);
-      start(60);
+      start(90);
       setMessage("");
     }
   };
@@ -35,16 +34,18 @@ const Login = () => {
       event.target.fourth.value +
       event.target.fifth.value +
       event.target.sixth.value;
-    console.log(otp);
 
     const userDetails = { user_email: email, otp: otp };
     const verifyOTP = check_OTP(userDetails);
+
     setMessage(verifyOTP);
     if (verifyOTP == "OTP is valid and checked") {
       setSuccessmessage(true);
     }
-
-    console.log(verifyOTP);
+    if (verifyOTP == "OTP is wrong after 10 tries") {
+      setMessage("");
+      start(0);
+    }
   };
 
   return (
