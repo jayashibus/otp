@@ -15,5 +15,8 @@ export default function useCountdown() {
   function start(seconds) {
     setSecondsLeft(seconds);
   }
-  return { secondsLeft, start };
+  function stop(seconds) {
+    setSecondsLeft(seconds);
+  }
+  return { secondsLeft, start, stop };
 }
