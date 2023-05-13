@@ -19,7 +19,7 @@ const Login = () => {
 
     if (generateOTP == "Email containing OTP has been sent successfully") {
       setSentotp(1);
-      start(90);
+      start(60);
       setMessage("");
     }
   };
@@ -52,7 +52,7 @@ const Login = () => {
     <div>
       {secondsLeft === 0 ? (
         <div className="min-h-screen flex items-center justify-center bg-blue-400">
-          <div className="bg-white p-16 rounded shadow-2x1 w-1/2">
+          <div className="bg-white p-16 rounded shadow-2x1 w-1/3">
             <h2 className="text-3xl font-bold mb-10 text-gray-800">Login</h2>
 
             <form className="space-y-5" onSubmit={handleSubmit}>
@@ -64,6 +64,7 @@ const Login = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter the email"
                   className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"
                   required
                 />
@@ -104,6 +105,7 @@ const Login = () => {
                     className="m-2 border h-10 w-10 text-center form-control rounded"
                     type="number"
                     name="first"
+                    data-testid="first"
                     maxLength="1"
                     min="0"
                     max="9"
@@ -113,6 +115,7 @@ const Login = () => {
                   <input
                     className="m-2 border h-10 w-10 text-center form-control rounded"
                     type="number"
+                    data-testid="second"
                     name="second"
                     maxLength="1"
                     min="0"
@@ -123,6 +126,7 @@ const Login = () => {
                     className="m-2 border h-10 w-10 text-center form-control rounded"
                     type="number"
                     name="third"
+                    data-testid="third"
                     maxLength="1"
                     min="0"
                     max="9"
@@ -132,6 +136,7 @@ const Login = () => {
                     className="m-2 border h-10 w-10 text-center form-control rounded"
                     type="number"
                     name="fourth"
+                    data-testid="fourth"
                     maxLength="1"
                     min="0"
                     max="9"
@@ -141,6 +146,7 @@ const Login = () => {
                     className="m-2 border h-10 w-10 text-center form-control rounded"
                     type="number"
                     name="fifth"
+                    data-testid="fifth"
                     maxLength="1"
                     min="0"
                     max="9"
@@ -150,6 +156,7 @@ const Login = () => {
                     className="m-2 border h-10 w-10 text-center form-control rounded"
                     type="number"
                     name="sixth"
+                    data-testid="sixth"
                     maxLength="1"
                     min="0"
                     max="9"
