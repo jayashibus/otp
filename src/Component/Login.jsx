@@ -10,14 +10,10 @@ const Login = () => {
   const { secondsLeft, start, stop } = useCountdown();
   const [message, setMessage] = useState("");
   const [successmessage, setSuccessmessage] = useState(false);
+  const [otpform, setOtpform] = useState(false);
+  const [disabled, setDisabled] = useState("");
 
-  // Reset the state when the countdown is over
-  useEffect(() => {
-    if (secondsLeft === 0) {
-      setMessage(""); // reset the state
-    }
-  }, [secondsLeft]);
-
+  // Validate the email and generate six digit OTP
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -26,8 +22,9 @@ const Login = () => {
       setMessage(generateOTP);
 
       if (generateOTP == "Email containing OTP has been sent successfully") {
-        start(30);
+        start(60);
         setMessage("");
+        setOtpform(true);
       }
     } catch (error) {
       console.error(error);
@@ -47,6 +44,7 @@ const Login = () => {
 
       //Random OTP generator combination range starting from  000000 t0 999999
       const otp = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
+
       const start_time = new Date().getTime();
 
       //Store OTP and user details in local Memory
@@ -131,11 +129,30 @@ const Login = () => {
       setSuccessmessage(true);
       setMessage("");
       setEmail("");
+      setOtpform(false);
       stop(0);
     }
     if (verifyOTP == "OTP is wrong after 10 tries") {
-      setMessage("");
+      setMessage("OTP is wrong after 10 tries");
       stop(0);
+    }
+  };
+
+  const handleResendOTP = () => {
+    try {
+      const generateOTP = generate_OTP_email(email);
+      setMessage(generateOTP);
+
+      if (generateOTP == "Email containing OTP has been sent successfully") {
+        start(60);
+        setMessage("");
+        setOtpform(true);
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage(
+        "Error occurred while generating OTP. Please try again later."
+      );
     }
   };
 
@@ -145,8 +162,6 @@ const Login = () => {
 
       // retrieve existing data from localStorage
       const existingData = JSON.parse(localStorage.getItem("otpData")) || [];
-
-      console.log(existingData);
 
       // find the OTP data object for the given email ID
       const otpData = existingData.find(
@@ -205,7 +220,7 @@ const Login = () => {
 
   return (
     <div>
-      {secondsLeft === 0 ? (
+      {!otpform ? (
         successmessage ? (
           <Success />
         ) : (
@@ -260,6 +275,8 @@ const Login = () => {
               handleOtpValidate={handleOtpValidate}
               message={message}
               secondsLeft={secondsLeft}
+              disabled={disabled}
+              handleResendOTP={handleResendOTP}
             />
           </div>
         </div>

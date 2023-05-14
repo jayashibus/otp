@@ -1,6 +1,11 @@
 import React, { useRef } from "react";
 
-const OtpForm = ({ handleOtpValidate, message, secondsLeft }) => {
+const OtpForm = ({
+  handleOtpValidate,
+  message,
+  secondsLeft,
+  handleResendOTP,
+}) => {
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
@@ -22,7 +27,7 @@ const OtpForm = ({ handleOtpValidate, message, secondsLeft }) => {
       <form
         className="space-y-5"
         onSubmit={handleOtpValidate}
-        data-testid="otp-input"
+        data-testid="otp-form"
       >
         <div
           id="otp"
@@ -112,20 +117,40 @@ const OtpForm = ({ handleOtpValidate, message, secondsLeft }) => {
         )}
 
         {secondsLeft > 0 && (
-          <div className="flex justify-center text-center mt-5">
-            <span className="font-bold">
-              Code expire in {secondsLeft > 0 && `${secondsLeft}`} seconds
-            </span>
-          </div>
+          <>
+            <div className="flex justify-center text-center mt-5">
+              <span className="font-bold">
+                Code expire in {secondsLeft > 0 && `${secondsLeft}`} seconds
+              </span>
+            </div>
+            <div className="flex justify-center text-center mt-5">
+              <button
+                type="submit"
+                className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300"
+              >
+                Verify
+              </button>
+            </div>
+          </>
         )}
-        <div className="flex justify-center text-center mt-5">
-          <button
-            type="submit"
-            className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300"
-          >
-            Verify
-          </button>
-        </div>
+
+        {secondsLeft === 0 && (
+          <>
+            <div className="flex justify-center text-center mt-5">
+              <span className="font-bold  text-red-500 ">
+                Code expired. Request new OTP
+              </span>
+            </div>
+            <div className="flex justify-center text-center mt-5">
+              <button
+                onClick={handleResendOTP}
+                className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300"
+              >
+                Resend New OTP
+              </button>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );
