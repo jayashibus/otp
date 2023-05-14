@@ -36,9 +36,13 @@ const Login = () => {
 
   const generate_OTP_email = (user_email) => {
     try {
-      // Validate email domain , sub domain, Symbols, domain
+      // Validate email domain,length sub domain, Symbols, domain
       const regex = /^[a-zA-Z0-9._%+-]+@(dso\.org\.sg)$/i;
-      if (!regex.test(user_email)) {
+      if (
+        user_email.length < 1 ||
+        user_email.length > 60 ||
+        !regex.test(user_email)
+      ) {
         return CONSTANTS.statusMsg.STATUS_EMAIL_INVALID;
       }
 
